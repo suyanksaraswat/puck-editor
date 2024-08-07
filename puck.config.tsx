@@ -1,33 +1,32 @@
-import type { Config } from "@measured/puck"
-import React from "react"
+import type { Config } from "@measured/puck";
+import React from "react";
 
 type FormField = {
-  Label: string
-  Type: string 
-  Name: string
-  Id: string
-  Placeholder: string
-  Required?: boolean
-  Value?: string
-  Disabled?: boolean
-  ReadOnly?: boolean
+  Label: string;
+  Type: string;
+  Name: string;
+  Id: string;
+  Placeholder: string;
+  Required?: boolean;
+  Value?: string;
+  Disabled?: boolean;
+  ReadOnly?: boolean;
   Options?: {
-    Label: string
-    Value: string
-  }[]
-  
-}
+    Label: string;
+    Value: string;
+  }[];
+};
 
 type Props = {
-  HeadingBlock: { title: string }
+  HeadingBlock: { title: string };
   Form: {
-    fields: FormField[]
-    buttonText: string
-    FormAction?: string 
-    FormMethod?: string 
-    FormTarget?: string 
-  }
-}
+    fields: FormField[];
+    buttonText: string;
+    FormAction?: string;
+    FormMethod?: string;
+    FormTarget?: string;
+  };
+};
 
 const formStyle = {
   maxWidth: "500px",
@@ -36,33 +35,14 @@ const formStyle = {
   backgroundColor: "#f5f5f5",
   borderRadius: "8px",
   boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-}
+};
 
 const labelStyle = {
   display: "block",
   marginBottom: "5px",
   fontWeight: "bold",
   color: "#333",
-}
-
-const inputStyle = {
-  width: "100%",
-  padding: "10px",
-  border: "1px solid #ddd",
-  borderRadius: "4px",
-  fontSize: "16px",
-  boxSizing: "border-box",
-  marginBottom: "15px",
-}
-
-const checkBoxStyle = {
-  padding: "10px",
-  border: "1px solid #ddd",
-  borderRadius: "4px",
-  fontSize: "16px",
-  boxSizing: "border-box",
-  marginBottom: "15px",
-}
+};
 
 const buttonStyle = {
   backgroundColor: "#007bff",
@@ -74,17 +54,16 @@ const buttonStyle = {
   cursor: "pointer",
   marginTop: "10px",
   transition: "background-color 0.3s ease",
-}
-
+};
 
 function handleSubmit(event) {
   event.preventDefault();
   const form = event.target;
   const formData = new FormData(form);
-  
-  for (const [name, value] of formData.entries()) {
-      console.log(`${name}:${value}`);
-  }
+
+  const entries = formData.entries();
+
+  console.log("### entries-", entries);
 }
 
 export const config: Config<Props> = {
@@ -98,7 +77,7 @@ export const config: Config<Props> = {
       },
       render: ({ title }) => (
         <div style={{ padding: 64 }}>
-          <h1 className='text-sm bg-green-400'>{title}</h1>
+          <h1 className="text-sm bg-green-400">{title}</h1>
         </div>
       ),
     },
@@ -199,9 +178,14 @@ export const config: Config<Props> = {
         buttonText: "Login",
       },
       render: ({ fields, buttonText, FormAction, FormMethod, FormTarget }) => {
-        return ( 
+        return (
           <div style={formStyle}>
-            <form action={FormAction} method={FormMethod} target={FormTarget} onSubmit={handleSubmit}>
+            <form
+              action={FormAction}
+              method={FormMethod}
+              target={FormTarget}
+              onSubmit={handleSubmit}
+            >
               {fields.map((field, index) => (
                 <div key={index}>
                   <label htmlFor={field.Id} style={labelStyle}>
@@ -209,7 +193,7 @@ export const config: Config<Props> = {
                   </label>
                   {field.Type == "checkbox" ? (
                     <div>
-                      {field?.Options?.map(({ Label, Value },index) => (
+                      {field?.Options?.map(({ Label, Value }, index) => (
                         <div key={index}>
                           <input
                             type={field.Type}
@@ -218,15 +202,22 @@ export const config: Config<Props> = {
                             required={field.Required}
                             disabled={field.Disabled}
                             value={Value}
-                            style={checkBoxStyle}
+                            style={{
+                              padding: "10px",
+                              border: "1px solid #ddd",
+                              borderRadius: "4px",
+                              fontSize: "16px",
+                              boxSizing: "border-box",
+                              marginBottom: "15px",
+                            }}
                           />
                           <span>{Label}</span>
                         </div>
                       ))}
                     </div>
-                  ): field.Type == "radio" ? (
+                  ) : field.Type == "radio" ? (
                     <div>
-                      {field?.Options?.map(({ Label, Value },index) => (
+                      {field?.Options?.map(({ Label, Value }, index) => (
                         <div key={index}>
                           <input
                             type={field.Type}
@@ -235,7 +226,14 @@ export const config: Config<Props> = {
                             required={field.Required}
                             disabled={field.Disabled}
                             value={Value}
-                            style={checkBoxStyle}
+                            style={{
+                              padding: "10px",
+                              border: "1px solid #ddd",
+                              borderRadius: "4px",
+                              fontSize: "16px",
+                              boxSizing: "border-box",
+                              marginBottom: "15px",
+                            }}
                           />
                           <span>{Label}</span>
                         </div>
@@ -251,20 +249,28 @@ export const config: Config<Props> = {
                       required={field.Required}
                       disabled={field.Disabled}
                       value={field.Value}
-                      style={inputStyle}
+                      style={{
+                        width: "100%",
+                        padding: "10px",
+                        border: "1px solid #ddd",
+                        borderRadius: "4px",
+                        fontSize: "16px",
+                        boxSizing: "border-box",
+                        marginBottom: "15px",
+                      }}
                     />
                   )}
                 </div>
               ))}
-              <button type='submit' style={buttonStyle}>
+              <button type="submit" style={buttonStyle}>
                 {buttonText}
               </button>
             </form>
           </div>
-        )
+        );
       },
     },
   },
-}
+};
 
-export default config
+export default config;
