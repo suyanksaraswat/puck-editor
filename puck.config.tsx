@@ -1,5 +1,9 @@
 import type { Config } from "@measured/puck";
 import React from "react";
+import { Inter } from "next/font/google";
+import classNames from "classnames";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 type FormField = {
   Label: string;
@@ -61,9 +65,9 @@ function handleSubmit(event) {
   const form = event.target;
   const formData = new FormData(form);
 
-  const entries = formData.entries();
-
-  console.log("### entries-", entries);
+  for (const [name, value] of formData.entries() as any) {
+    console.log(`${name}:${value}`);
+  }
 }
 
 export const config: Config<Props> = {
@@ -77,7 +81,9 @@ export const config: Config<Props> = {
       },
       render: ({ title }) => (
         <div style={{ padding: 64 }}>
-          <h1 className="text-sm bg-green-400">{title}</h1>
+          <h1 className={classNames("text-sm bg-green-400", inter.className)}>
+            {title}
+          </h1>
         </div>
       ),
     },
@@ -179,7 +185,7 @@ export const config: Config<Props> = {
       },
       render: ({ fields, buttonText, FormAction, FormMethod, FormTarget }) => {
         return (
-          <div style={formStyle}>
+          <div className={inter.className} style={formStyle}>
             <form
               action={FormAction}
               method={FormMethod}

@@ -1,1 +1,1 @@
-{"/":{"content":[{"type":"HeadingBlock","props":{"title":"Login in Form","id":"HeadingBlock-1694032984497"}}],"root":{"props":{"title":""}},"zones":{}}}
+{"/":{"content":[{"type":"Form","props":{"fields":[{"Label":"Email","Type":"email","Name":"email","Id":"email","Placeholder":"Enter your email","Required":true},{"Type":"text","Label":"test","Name":"test","Id":"test"}],"buttonText":"Login","id":"Form-195cca20-a1e8-4860-a301-badb0e3b09a5"}}],"root":{"props":{"title":""}},"zones":{}}}
